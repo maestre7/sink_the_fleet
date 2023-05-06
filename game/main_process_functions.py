@@ -1,5 +1,4 @@
 # Native
-import os
 import logging
 
 # Third Parties
@@ -14,8 +13,15 @@ fleet_default = {(4,1),(3,2),(2,3),(1,4)}
 def deploy_fleet(board: np.array, fleet: dict = fleet_default) -> np.array:
     try:
         for ship in fleet:
-            while ship[1] > 0: ###
+            control_ship = ship[1] # numero de barcos de este tipo a desplegar
+            
+            while control_ship > 0: ###
+                
                 board = ship_check_and_deployment(ship[0], board)
+                control_ship -= 1
+                
+        
+        return board
     ####
     except Exception as err:
         logger.exception(f"deploy_fleet {err}")
@@ -24,12 +30,11 @@ def deploy_fleet(board: np.array, fleet: dict = fleet_default) -> np.array:
 def ship_check_and_deployment(ship_length: int, board: np.array):
     """We generate deployment coordinates and verify if they are occupied
     """
-    
+
     try:
         busy = True # Flag para controlar el adecuado despliegue
         while busy:
             deploy_ship = create_ship_random(ship_length, len(board))
-            # Verificamos q no este ocupado el espacio ya
             busy = [coor for coor in deploy_ship if board[coor] == "O"]
         
         return place_boat(deploy_ship, board)
@@ -56,7 +61,7 @@ def create_ship_random(ship_length: int, board_size: int = 10) -> np.array:
     """
 
     try:
-        ship_random = np.array()
+        ship_random = []
         ship_random.append(new_position_deploy(board_size))
         row_random = ship_random[0][0] # Fila del primer despliegue
         column_random = ship_random[0][1] # Columna del primer despliegue
@@ -74,7 +79,7 @@ def create_ship_random(ship_length: int, board_size: int = 10) -> np.array:
                 row_random = row_random + 1
 
             if row_random not in range(board_size) or column_random not in range(board_size):
-                ship_random = np.array()
+                ship_random = []
                 ship_random.append(new_position_deploy(board_size))
                 row_random = ship_random[0][0] # Fila del primer despliegue
                 column_random = ship_random[0][1] # Columna del primer despliegue
@@ -91,16 +96,17 @@ def create_ship_random(ship_length: int, board_size: int = 10) -> np.array:
 def new_position_deploy(board_size: int = 10) -> tuple:
     """new initial deployment position"""
 
-    return np.random.randint(0,board_size, size=2)
+    return tuple(np.random.randint(0,board_size, size=2))
 
 def generate_boards(size: int = 10, player: int = 2)-> np.array:
     """create a number of boards depending on the number of players
     """
 
     try:
-        boards = np.array()
-        while len(boards) <= player:
-            boards.append(create_board(size)) # player 0
+        boards = []
+        while len(boards) != player:
+            board = create_board(size)
+            boards.append(board) # player 0
 
         return boards
     
@@ -114,17 +120,6 @@ def create_board(size: int =10) -> np.array:
     """
 
     return np.full((size, size), " ")
-
-
-def clear() -> None:
-    """Clear console
-    """
-
-    if os.name == "nt":
-        os.system("cls")
-    else:
-        os.system("clear")
-
 
 
 def load_menu() -> None:

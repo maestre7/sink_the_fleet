@@ -7,7 +7,8 @@ from time import time, localtime, strftime, sleep
 import numpy as np
 
 # Own
-from game.main_process_functions import load_menu, clear, generate_boards, deploy_fleet
+from game.main_process_functions import load_menu, generate_boards, deploy_fleet
+from utils.utils import clear
 
 
 
@@ -25,20 +26,20 @@ class Main_Process:
         try:
             load_menu() # Cargamos el menu con las distitas opciones
 
-            option = int(input("Elija el numero de la opcion"))
+            option = int(input("Elija el numero de la opcion "))
 
             if option == 1:
                 self.game_against_ai()
 
         except ValueError:
             ### preparar una unica str o cargar desde un fichero multi idioma
-            clear()
+            #clear()
             print("!" * 10) 
             print(" Solo se admiten numeros")
             print("!" * 10)
             print("")
-            sleep(3000)
-            clear()
+            sleep(3)
+            #clear()
             self.menu()
 
         except Exception as err:
@@ -51,18 +52,18 @@ class Main_Process:
         """
 
         try: ### datos basicos de partida
-            round_zero = np.array()
+            round_zero = []
             data_game = {"style": 0, # 1 playervsplayer, 0 playervsia
                          "round": 0,
                          "turn": 1, # 0 ia, 1 player one , 2 player two
-                         "player": self.name,
+                         "player": self.name_player,
                          "beginning": strftime("%Y-%m-%d %H-%M-%S", localtime(time())),
-                         "record": np.array()}
+                         "record": []}
 
             boards = generate_boards() # default size 10 and player 2
             for board in boards:
                 # Por cada jugador desplegamos las flotas
-                round_zero.append(deploy_fleet(board)) 
+                round_zero.append(deploy_fleet(board))
 
         except Exception as err:
             self.logger.exception(f"game_against_ai {err}")

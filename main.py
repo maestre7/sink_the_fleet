@@ -8,6 +8,7 @@ from pathlib import Path
 
 # Own
 from game.main_process import Main_Process
+from utils.utils import clear
 
 class Sink_The_Fleet:
 
@@ -27,16 +28,18 @@ class Sink_The_Fleet:
         try:
             name_player = self.user_register()
             game = Main_Process(name_player)
+            clear()
             game.menu()
 
         except Exception as err:
             self.logger.exception(f"initiation: {err}")
+            clear()
             sys.exit("Ocurrio un error")  
 
     def user_register(self) -> None:
         """We ask the player for their name or username for the game
         """
-        
+
         try:
             name_player = input("Introduce un nombre de jugador: ")
             return name_player
