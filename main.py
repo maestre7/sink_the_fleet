@@ -1,6 +1,8 @@
 # Native
+import sys
 import logging
 import logging.config
+from pathlib import Path
 
 # Third Parties
 
@@ -15,11 +17,11 @@ class Sink_The_Fleet:
 
         # we boot and configure the logging
         logging.config.fileConfig("./log/config/logger.ini", 
-                                  defaults={'filename': './log/mylog.log'},
+                                  defaults={'filename': Path('./log/mylog.log')},
                                   disable_existing_loggers=False)
         self.logger = logging.getLogger('STF')
 
-    def initiation(self):
+    def initiation(self) -> None:
         """We collect user and start main process
         """
         try:
@@ -29,10 +31,12 @@ class Sink_The_Fleet:
 
         except Exception as err:
             self.logger.exception(f"initiation: {err}")
+            sys.exit("Ocurrio un error")  
 
-    def user_register(self):
+    def user_register(self) -> None:
         """We ask the player for their name or username for the game
         """
+        
         try:
             name_player = input("Introduce un nombre de jugador: ")
             return name_player
