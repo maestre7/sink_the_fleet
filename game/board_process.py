@@ -57,7 +57,7 @@ class Board:
                     board, deploy_ship = ship_check_and_deployment(ship[0], board)
                     fleet_coor.append(deploy_ship)
                     control_ship -= 1
-                    
+      
             return (board, fleet_coor)
 
         except Exception as err:

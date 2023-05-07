@@ -33,8 +33,8 @@ class Sink_The_Fleet:
 
         except Exception as err:
             self.logger.exception(f"initiation - {err}")
-            #clear()
-            sys.exit("Ocurrio un error")  
+            clear()
+            sys.exit("Ocurrio un error, Humano estupido")  
 
     def user_register(self) -> None:
         """We ask the player for their name or username for the game
