@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 # flota por defecto: (tamaño, cantidad)
 fleet_default = {(4,1),(3,2),(2,3),(1,4)}
 
-def deploy_fleet(board: np.array, fleet: dict = fleet_default) -> np.array:
+def deploy_fleet(board: list, fleet: dict = fleet_default) -> list:
     try:
         for ship in fleet:
             control_ship = ship[1] # numero de barcos de este tipo a desplegar
@@ -20,14 +20,14 @@ def deploy_fleet(board: np.array, fleet: dict = fleet_default) -> np.array:
                 board = ship_check_and_deployment(ship[0], board)
                 control_ship -= 1
                 
-        
+
         return board
     ####
     except Exception as err:
         logger.exception(f"deploy_fleet {err}")
         raise
 
-def ship_check_and_deployment(ship_length: int, board: np.array):
+def ship_check_and_deployment(ship_length: int, board: list):
     """We generate deployment coordinates and verify if they are occupied
     """
 
@@ -42,7 +42,7 @@ def ship_check_and_deployment(ship_length: int, board: np.array):
         logger.exception(f"place_boat {err}")
         raise
 
-def place_boat(ship_coor: np.array, board: np.array) -> np.array:
+def place_boat(ship_coor: list, board: np.array) -> list:
     """We display the ship on the board according to its coordinates
     """
 
@@ -56,7 +56,7 @@ def place_boat(ship_coor: np.array, board: np.array) -> np.array:
         logger.exception(f"place_boat {err}")
         raise
 
-def create_ship_random(ship_length: int, board_size: int = 10) -> np.array:
+def create_ship_random(ship_length: int, board_size: int = 10) -> list:
     """Random deployment of a ship
     """
 
@@ -98,7 +98,7 @@ def new_position_deploy(board_size: int = 10) -> tuple:
 
     return tuple(np.random.randint(0,board_size, size=2))
 
-def generate_boards(size: int = 10, player: int = 2)-> np.array:
+def generate_boards(size: int = 10, player: int = 2)-> list:
     """create a number of boards depending on the number of players
     """
 

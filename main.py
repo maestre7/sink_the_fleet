@@ -32,8 +32,8 @@ class Sink_The_Fleet:
             game.menu()
 
         except Exception as err:
-            self.logger.exception(f"initiation: {err}")
-            clear()
+            self.logger.exception(f"initiation - {err}")
+            #clear()
             sys.exit("Ocurrio un error")  
 
     def user_register(self) -> None:

@@ -24,47 +24,57 @@ class Main_Process:
         """
 
         try:
-            load_menu() # Cargamos el menu con las distitas opciones
+            try:
+                load_menu() # Cargamos el menu con las distitas opciones
 
-            option = int(input("Elija el numero de la opcion "))
+                option = int(input("Elija el numero de la opcion "))
 
-            if option == 1:
-                self.game_against_ai()
+            except ValueError:
+                ### preparar una unica str o cargar desde un fichero multi idioma
+                #clear()
+                print("!" * 10) 
+                print(" Solo se admiten numeros")
+                print("!" * 10)
+                print("")
+                sleep(3)
+                #clear()
+                self.menu()
 
-        except ValueError:
-            ### preparar una unica str o cargar desde un fichero multi idioma
-            #clear()
-            print("!" * 10) 
-            print(" Solo se admiten numeros")
-            print("!" * 10)
-            print("")
-            sleep(3)
-            #clear()
-            self.menu()
+            else:
+                if option == 1:
+                    self.game_against_ai()
 
         except Exception as err:
-            self.logger.exception(f"menu {err}")
-            raise
-
-
+            self.logger.exception(f"menu: {err}")
+            raise 
+        
+        
     def game_against_ai(self) -> None:
         """
         """
 
         try: ### datos basicos de partida
-            round_zero = []
             data_game = {"style": 0, # 1 playervsplayer, 0 playervsia
                          "round": 0,
                          "turn": 1, # 0 ia, 1 player one , 2 player two
                          "player": self.name_player,
                          "beginning": strftime("%Y-%m-%d %H-%M-%S", localtime(time())),
                          "record": []}
-
+            # Generamos tableros
             boards = generate_boards() # default size 10 and player 2
-            for board in boards:
+            data_game["record"].append({}) # Preparamos un dict para el round
+
+            for index, board in enumerate(boards):
                 # Por cada jugador desplegamos las flotas
-                round_zero.append(deploy_fleet(board))
+                deploy_board = deploy_fleet(board)
+                # Calculamos el numero de vidas = al numero de slots de ocupados por barcos
+                life = sum([sum([1 for c in coor if c == "O"]) for coor in deploy_board])
+                data_game["record"][0][f"board{index}"] = deploy_board
+                data_game["record"][0][f"life_player{index}"] = life
+
+            print(data_game["record"][0])
+            
 
         except Exception as err:
-            self.logger.exception(f"game_against_ai {err}")
-            raise
+            self.logger.exception(f"game_against_ai: {err}")
+            raise 
