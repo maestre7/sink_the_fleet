@@ -1,11 +1,6 @@
 # Native
 import logging
 
-# Third Parties
-import numpy as np
-
-# Own
-#from game.variables import constants
 
 logger = logging.getLogger(__name__)
 

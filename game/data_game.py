@@ -3,23 +3,21 @@ import logging
 from time import time, localtime, strftime
 from copy import deepcopy
 
-# Third Parties
-import numpy as np
-
 # Own
 from game.variables import constants
+
 
 class Data_Game:
 
     def __init__(self, name) -> None:
-        try: 
+        try:
             self.logger = logging.getLogger(__name__)
             self.data_game = constants["data_game"]
             self.data_game["player"] = name
             self.data_game["beginning"] = strftime("%Y-%m-%d %H-%M-%S", localtime(time()))
             self.data_game["record"].append({}) # Preparamos un dict para el round
 
-        except Exception as err:
+        except Exception:
             raise Exception(f"Data_Game.__init__")
 
     def next_round(self):
@@ -40,14 +38,14 @@ class Data_Game:
                 self.data_game["turn"] += 1
         except Exception as err:
             self.logger.exception(f"next_player: {err}")
-            raise 
+            raise
 
     def turn_target(self):
         # Recuperamos el del siguite jugador o por defecto el primero
         if self.data_game["turn"] == (self.data_game["num_player"] -1):
             turn = 0
-        else: 
-            turn = self.data_game["turn"]+1 
+        else:
+            turn = self.data_game["turn"] + 1
         return turn
 
 
@@ -80,7 +78,7 @@ class Data_Game:
             # Recuperamos el del siguite jugador o por defecto el primero
             turn = self.turn_target()
             round = self.data_game["round"]
-            self.data_game["record"][round][f"life{turn}"] = life 
+            self.data_game["record"][round][f"life{turn}"] = life
 
         except Exception as err:
             self.logger.exception(f"update_life: {err}")
@@ -106,7 +104,7 @@ class Data_Game:
             board_ship = self.data_game["record"][round][f"board{turn}"]
 
             return deepcopy(board_ship)
-        
+
         except Exception as err:
             self.logger.exception(f"recover_board_ship: {err}")
             raise 
