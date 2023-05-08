@@ -22,7 +22,7 @@ class Board:
             self.fleet_default = constants["fleet_default"]
             self.boards = []
 
-        except Exception as err:
+        except Exception:
             raise Exception(f"Boards.__init__")
 
 
@@ -38,10 +38,10 @@ class Board:
                 self.boards.append(board)
 
             return self.boards
-        
+
         except Exception as err:
             self.logger.exception(f"generate_boards: {err}")
-            raise 
+            raise
 
     def deploy_fleet(self, board: list, fleet: list = None) -> list:
         """We deploy a number of ships on the board
@@ -53,7 +53,7 @@ class Board:
             for ship in fleet:
                 control_ship = ship[1] # numero de barcos de este tipo a desplegar
                 
-                while control_ship > 0: ###   
+                while control_ship > 0: ###
                     board, deploy_ship = ship_check_and_deployment(ship[0], board)
                     fleet_coor.append(deploy_ship)
                     control_ship -= 1

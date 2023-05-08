@@ -21,7 +21,7 @@ class Main_Process:
     def __init__(self, name_player: str) -> None:
         self.logger = logging.getLogger(__name__)
         self.name_player = name_player
-        
+
 
     def menu(self) -> None:
         """We load the menu with the different options and redirect
@@ -36,7 +36,7 @@ class Main_Process:
             except ValueError:
                 ### preparar una unica str o cargar desde un fichero multi idioma
                 clear()
-                print("!" * 10) 
+                print("!" * 10)
                 print(" Solo se admiten numeros")
                 print("!" * 10)
                 print("")
@@ -50,7 +50,7 @@ class Main_Process:
 
         except Exception as err:
             self.logger.exception(f"menu: {err}")
-            raise 
+            raise
         
         
     def game_against_ai(self) -> None:
@@ -58,12 +58,6 @@ class Main_Process:
         """
 
         try: ### datos basicos de partida
-            """ data_game = {"style": 0, # 1 playervsplayer, 0 playervsia
-                         "round": 0,
-                         "turn": 1, # 0 ia, 1 player one , 2 player two
-                         "player": self.name_player,
-                         "beginning": strftime("%Y-%m-%d %H-%M-%S", localtime(time())),
-                         "record": []} """
             data_game = Data_Game(self.name_player)
             
             # Generamos tableros
@@ -72,7 +66,7 @@ class Main_Process:
             
             for board in boards:
 
-                # Por cada jugador desplegamos las flotas      
+                # Por cada jugador desplegamos las flotas
                 # Recuperamos las coordenadas de los barcos.
                 deploy_board, fleet_coor = board_game.deploy_fleet(board)
 

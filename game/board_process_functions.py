@@ -4,8 +4,6 @@ import logging
 # Third Parties
 import numpy as np
 
-# Own
-from game.variables import constants
 
 logger = logging.getLogger(__name__)
 
@@ -16,7 +14,7 @@ def create_board(size: int =10) -> np.array:
 
     try:
         return np.full((size, size), " ")
-    
+
     except Exception as err:
         logger.exception(f"create_board: {err}")
         raise
@@ -65,7 +63,7 @@ def create_ship_random(ship_length: int, board_size: int = 10) -> list:
 
         while len(ship_random) < ship_length:
             if orient == "W":
-                column_random = column_random - 1 
+                column_random = column_random - 1
             elif orient == "E":
                 column_random = column_random + 1
             elif orient == "N":

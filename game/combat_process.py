@@ -53,7 +53,7 @@ class Combat_Process:
     def check_shoot(self, coor: tuple, board_target: list, board_shoot: list) -> bool:
 
         try:
-            
+
             shoot = False
             print("coor:", coor)
             if board_target[coor] == "O":
@@ -74,7 +74,7 @@ class Combat_Process:
         
         except Exception as err:
             self.logger.exception(f"check_shoot: {err}")
-            raise 
+            raise
 
     def check_life(self,board_target: list,):
 
