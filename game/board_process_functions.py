@@ -28,7 +28,7 @@ def ship_check_and_deployment(ship_length: int, board: list):
         while busy:
             deploy_ship = create_ship_random(ship_length, len(board))
             busy = [coor for coor in deploy_ship if board[coor] == "O"]
-        
+
         board = place_boat(deploy_ship, board)
         return (board, deploy_ship)
     except Exception as err:

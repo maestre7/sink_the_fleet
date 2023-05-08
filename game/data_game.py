@@ -31,7 +31,7 @@ class Data_Game:
 
     def next_player(self):
 
-        try: 
+        try:
             if self.data_game["turn"] == (self.data_game["num_player"] -1):
                 self.data_game["turn"] = 0
             else:
@@ -54,12 +54,12 @@ class Data_Game:
         try:
             # Recuperamos el del siguite jugador o por defecto el primero
             turn = self.turn_target()
-            round = self.data_game["round"]
-            self.data_game["record"][round][f"board_shoot{turn}"] = board_shoot
+            round_game = self.data_game["round"]
+            self.data_game["record"][round_game][f"board_shoot{turn}"] = board_shoot
 
         except Exception as err:
             self.logger.exception(f"update_board_shoot: {err}")
-            raise 
+            raise
 
     def update_board(self, board: list):
 
@@ -108,7 +108,7 @@ class Data_Game:
         except Exception as err:
             self.logger.exception(f"recover_board_ship: {err}")
             raise 
-        
+
     def recover_board_shoot(self) -> list:
 
         try:
