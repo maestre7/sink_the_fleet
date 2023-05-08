@@ -52,7 +52,7 @@ class Board:
             fleet_coor = []
             for ship in fleet:
                 control_ship = ship[1] # numero de barcos de este tipo a desplegar
-                
+
                 while control_ship > 0: ###
                     board, deploy_ship = ship_check_and_deployment(ship[0], board)
                     fleet_coor.append(deploy_ship)

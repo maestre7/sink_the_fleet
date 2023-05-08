@@ -59,7 +59,7 @@ class Combat_Process:
             if board_target[coor] == "O":
                 board_target[coor] = "X"
                 board_shoot[coor] = "X"
-                
+
                 print("Tocado")
                 shoot = True
             else:

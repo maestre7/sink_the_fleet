@@ -51,7 +51,7 @@ class Main_Process:
         except Exception as err:
             self.logger.exception(f"menu: {err}")
             raise
-        
+
         
     def game_against_ai(self) -> None:
         """
