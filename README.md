@@ -1,8 +1,7 @@
 ![imagen](./img/hundir-la-flota-juego-de-mesa.jpg)
 
-# sink_the_fleet
  
-# Battleship Game
+# Battleship Game - Sink_The_Fleet
 
 This is a simple implementation of the Battleship game in Python. The game allows you to play against an AI opponent. 
 
